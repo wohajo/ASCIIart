@@ -10,6 +10,7 @@ def loadImage(imagePath):
             templist.append(image.getpixel((i, j)))
         pixels.append(templist)
 
+    #TODO put modes here
     for i in range(height):
         for j in range(width):
             r, g, b = pixels[i][j]
@@ -29,12 +30,32 @@ def printPixels(height, width, pixels):
             elif pixel < 85:
                 print("..", end="")
 
+def lightnessCalculation():
+    pass
+
+def averageCalculation():
+    pass
+
+def luminosityCalculation():
+    pass
+
 if __name__ == "__main__":
     
+    # getting file
     print ("welcome to ASCII art converter")
     print ("provide a filename: ")
     filename = input()
+    #TODO secure input for jpgs only
+    #TODO chcecking if file is in folder?
 
+    print ("select one of the modes: ")
+    print ("1: Average")
+    print ("2: Lightness")
+    print ("3: Luminosity")
+    selection = int(input("Select mode: "))
+    while (selection > 3 or selection < 1):
+        selection = int(input("Select mode (1 - 3): "))
+        #TODO selection of calculations
 
     image = Image.open(filename)
     height, width = image.size
