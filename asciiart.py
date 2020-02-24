@@ -1,5 +1,6 @@
 from PIL import Image
 
+
 def loadImage(imagePath, selection):
 
     pixels = []
@@ -18,16 +19,14 @@ def loadImage(imagePath, selection):
         return averageCalculation(pixels, height, width)
 
 def printPixels(pixels, height, width):
-    for i in range(height):
+    ASCIICHARS = "`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+
+    for i in range(width):
         print()
-        for j in range(width):
+        for j in range(height):
             pixel = pixels[j][i]
-            if pixel >= 170:
-                print(chr(254) * 2, end="")
-            elif pixel >= 85 and pixel < 170: 
-                print("::", end="")
-            elif pixel < 85:
-                print("..", end="")
+            print(ASCIICHARS[int(pixel//(255//65))], end="")
+            print(ASCIICHARS[int(pixel//(255//65))], end="")
 
 def lightnessCalculation(pixels, height, width):
     
@@ -99,3 +98,8 @@ if __name__ == "__main__":
     printPixels(pixels, height, width)
 
     print("\n\n")
+
+    # example: scale 0 - 100, 20 chars
+    # b: 50 -> char 10
+    # b: 60 -> char 12
+    # b: 30 -> char 
