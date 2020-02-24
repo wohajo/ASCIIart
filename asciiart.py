@@ -58,33 +58,44 @@ def luminosityCalculation(pixels, height, width):
 
 if __name__ == "__main__":
     
-    # getting file
     print ("Welcome to ASCII art converter")
-    print ("Provide a filename: ")
-    filename = input()
+    print ("Provide a .jpg file")
 
-    image = Image.open(filename)
-    height, width = image.size
-    print("Image loaded! Size: ", height, "x", width)
-    #TODO secure input for jpgs only
-    #TODO chcecking if file is in folder?
+    # getting file
+    while True:
+        try:
+            print ("Provide a filename: ")
+            filename = input()
+            while not filename.endswith(".jpg"):
+                print("Provide a .jpg file!")
+                filename = input()
+            image = Image.open(filename)
+            height, width = image.size
+        except:
+            print("File not found! \n")
+        else:
+            print("Image loaded! Size: ", height, "x", width)
+            break
 
     # selecting mode
     print ("Select one of the modes: ")
     print ("1: Average")
     print ("2: Lightness")
     print ("3: Luminosity")
-    selection = int(input("Select mode: "))
 
-    while (selection > 3 or selection < 1):
-        selection = int(input("Select mode (1 - 3): "))
-        #TODO secure input from other chars
+    while True:
+        try:
+            selection = int(input("Select mode: "))
+            while (selection > 3 or selection < 1):
+                selection = int(input("Select mode (1 - 3): "))
+        except ValueError:
+            print ("That's not a number!")
+        else:
+            print ("selected mode: ", selection)
+            break
 
+    # printing image
     pixels = loadImage(filename, selection)
     printPixels(pixels, height, width)
 
     print("\n\n")
-
-    #robi cos w jednej linijce i iteruje po wszystkim
-    # i = [1, 2, 3]
-    # j = [zmienna**2 for zmienna in i]
