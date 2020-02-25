@@ -25,8 +25,8 @@ def printPixels(pixels, height, width):
         print()
         for j in range(height):
             pixel = pixels[j][i]
-            print(ASCIICHARS[int(pixel//(255//65))], end="")
-            print(ASCIICHARS[int(pixel//(255//65))], end="")
+            print(ASCIICHARS[int(pixel//(255/65))], end="")
+            print(ASCIICHARS[int(pixel//(255/65))], end="")
 
 def lightnessCalculation(pixels, height, width):
     
@@ -98,8 +98,3 @@ if __name__ == "__main__":
     printPixels(pixels, height, width)
 
     print("\n\n")
-
-    # example: scale 0 - 100, 20 chars
-    # b: 50 -> char 10
-    # b: 60 -> char 12
-    # b: 30 -> char 
