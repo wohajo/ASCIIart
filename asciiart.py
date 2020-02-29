@@ -19,7 +19,7 @@ def loadImage(imagePath, selection):
         return averageCalculation(pixels, height, width)
 
 def printPixels(pixels, height, width):
-    ASCIICHARS = "`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+    ASCIICHARS = " ^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
 
     for i in range(width):
         print()
@@ -65,22 +65,41 @@ if __name__ == "__main__":
         try:
             print ("Provide a filename: ")
             filename = input()
+            
             while not filename.endswith(".jpg"):
                 print("Provide a .jpg file!")
                 filename = input()
+            
             image = Image.open(filename)
             height, width = image.size
+
         except:
             print("File not found! \n")
+
         else:
             print("Image loaded! Size: ", height, "x", width)
-            break
+            try:
+                print("Provide a new height to resize image or current height (", height, "): ")
+                newHeight = int(input())
+
+            except ValueError:
+                print("That's not a number!")
+            
+            else:
+                height = int(newHeight)
+                width = int(height / image.height * image.width)
+                print("new width: ", width)
+                image.resize((height, width))
+                image.save("resized.jpg")
+                break
 
     # selecting mode
     print ("Select one of the modes: ")
     print ("1: Average")
     print ("2: Lightness")
     print ("3: Luminosity")
+
+    print(height, width)
 
     while True:
         try:
@@ -94,7 +113,7 @@ if __name__ == "__main__":
             break
 
     # printing image
-    pixels = loadImage(filename, selection)
+    pixels = loadImage("resized.jpg", selection)
     printPixels(pixels, height, width)
 
     print("\n\n")
