@@ -89,7 +89,7 @@ if __name__ == "__main__":
                 height = int(newHeight)
                 width = int(height / image.height * image.width)
                 print("new width: ", width)
-                image.resize((height, width))
+                image = image.resize((height, width))
                 image.save("resized.jpg")
                 break
 
