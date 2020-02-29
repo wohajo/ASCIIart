@@ -5,51 +5,51 @@ def loadImage(imagePath, selection):
 
     pixels = []
 
-    for i in range(height):
+    for i in range(width):
         templist = []
-        for j in range(width):
+        for j in range(height):
             templist.append(image.getpixel((i, j)))
         pixels.append(templist)
 
     if (selection == 3):
-        return luminosityCalculation(pixels, height, width)
+        return luminosityCalculation(pixels, width, height)
     elif (selection == 2):
-        return lightnessCalculation(pixels, height, width)
+        return lightnessCalculation(pixels, width, height)
     elif (selection == 1):
-        return averageCalculation(pixels, height, width)
+        return averageCalculation(pixels, width, height)
 
-def printPixels(pixels, height, width):
+def printPixels(pixels, width, height):
     ASCIICHARS = " ^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
 
-    for i in range(width):
+    for j in range(height):
         print()
-        for j in range(height):
-            pixel = pixels[j][i]
+        for i in range(width):
+            pixel = pixels[i][j]
             print(ASCIICHARS[int(pixel//(255/65))], end="")
             print(ASCIICHARS[int(pixel//(255/65))], end="")
 
-def lightnessCalculation(pixels, height, width):
+def lightnessCalculation(pixels, width, height):
     
-    for i in range(height):
-        for j in range(width):
+    for i in range(width):
+        for j in range(height):
             r, g, b = pixels[i][j]
             pixels[i][j] = (r + g + b) // 3
 
     return pixels
 
-def averageCalculation(pixels, height, width):
+def averageCalculation(pixels, width, height):
     
-    for i in range(height):
-        for j in range(width):
+    for i in range(width):
+        for j in range(height):
             r, g, b = pixels[i][j]
             pixels[i][j] = (max(r, g, b) + min(r, g, b)) // 2
 
     return pixels
 
-def luminosityCalculation(pixels, height, width):
+def luminosityCalculation(pixels, width, height):
     
-    for i in range(height):
-        for j in range(width):
+    for i in range(width):
+        for j in range(height):
             r, g, b = pixels[i][j]
             pixels[i][j] = int(0.21 * r + 0.72 * g + 0.07 * b)
 
@@ -71,13 +71,13 @@ if __name__ == "__main__":
                 filename = input()
             
             image = Image.open(filename)
-            height, width = image.size
+            width, height = image.size
 
         except:
             print("File not found! \n")
 
         else:
-            print("Image loaded! Size: ", height, "x", width)
+            print("Image loaded! Size: ", width, "x", height)
             try:
                 print("Provide a new height to resize image or current height (", height, "): ")
                 newHeight = int(input())
@@ -89,7 +89,7 @@ if __name__ == "__main__":
                 height = int(newHeight)
                 width = int(height / image.height * image.width)
                 print("new width: ", width)
-                image = image.resize((height, width))
+                image = image.resize((width, height))
                 image.save("resized.jpg")
                 break
 
@@ -98,8 +98,6 @@ if __name__ == "__main__":
     print ("1: Average")
     print ("2: Lightness")
     print ("3: Luminosity")
-
-    print(height, width)
 
     while True:
         try:
@@ -114,6 +112,6 @@ if __name__ == "__main__":
 
     # printing image
     pixels = loadImage("resized.jpg", selection)
-    printPixels(pixels, height, width)
+    printPixels(pixels, width, height)
 
     print("\n\n")
